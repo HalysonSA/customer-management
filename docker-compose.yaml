@@ -1,0 +1,22 @@
+volumes:
+  postgres_customer_management_data:
+
+services:
+  postgres:
+    image: postgres:latest
+    container_name: postgres-customer_management
+    hostname: postgres-customer_management
+    environment:
+      POSTGRES_DB: customer_management_database
+      POSTGRES_USER: root
+      POSTGRES_PASSWORD: root
+    volumes:
+      - postgres_customer_management_data:/var/lib/postgresql/data
+    ports:
+      - '5432:5432'
+    networks:
+      - customer_management_default
+
+networks:
+  customer_management_default:
+    driver: bridge
