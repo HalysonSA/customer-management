@@ -4,15 +4,21 @@ import { CreateCustomerHttpController } from './create-customer/create-customer.
 import { CUSTOMER_REPOSITORY } from './customer.di-token';
 import { CustomerRepository } from './repositories/customer.prisma-repository';
 import { PrismaService } from 'src/libs/database/prisma.service';
+import { ListCustomersService } from './list-customers/list-customers.service';
+import { ListCustomersHttpController } from './list-customers/list-customers.http-controller';
 
-const providers: Provider[] = [CreateCustomerService, PrismaService];
+const providers: Provider[] = [
+  CreateCustomerService,
+  ListCustomersService,
+  PrismaService,
+];
 const respositories: Provider[] = [
   {
     provide: CUSTOMER_REPOSITORY,
     useClass: CustomerRepository,
   },
 ];
-const controllers = [CreateCustomerHttpController];
+const controllers = [CreateCustomerHttpController, ListCustomersHttpController];
 
 @Module({
   providers: [...providers, ...respositories],
