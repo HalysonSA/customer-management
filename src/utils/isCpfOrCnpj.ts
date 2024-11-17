@@ -7,16 +7,12 @@ import { cpf, cnpj } from 'cpf-cnpj-validator';
 @ValidatorConstraint({ name: 'isCpf', async: false })
 export class IsCpfOrCnpj implements ValidatorConstraintInterface {
   validate(value: string): boolean {
-    const onlyNumbers = /^\d+$/;
+    const sanitizedValue = value.replace(/\D/g, '');
 
-    if (typeof value !== 'string' || !onlyNumbers.test(value)) {
-      return false;
-    }
-
-    if (value.length === 11) {
-      return cpf.isValid(value);
-    } else if (value.length === 14) {
-      return cnpj.isValid(value);
+    if (sanitizedValue.length === 11) {
+      return cpf.isValid(sanitizedValue);
+    } else if (sanitizedValue.length === 14) {
+      return cnpj.isValid(sanitizedValue);
     }
 
     return false;
