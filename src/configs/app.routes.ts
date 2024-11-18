@@ -5,6 +5,7 @@ export const routesV1 = {
   version: 'v1',
   user: {
     root: userRoot,
+    login: `${userRoot}/login`,
   },
   customer: {
     root: customerRoot,
