@@ -36,7 +36,7 @@ export class GlobalErrorFilter implements ExceptionFilter {
           response.status(HttpStatus.NOT_FOUND).json({
             statusCode: HttpStatus.NOT_FOUND,
             message: 'Not Found: Resource not found.',
-            cause: prismaError.meta.cause,
+            cause: prismaError.meta?.cause,
           });
           break;
 
