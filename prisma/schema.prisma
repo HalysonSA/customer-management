@@ -8,10 +8,12 @@ datasource db {
 }
 
 model User {
-  id        String    @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  id        String     @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
   name      String
-  email     String    @unique
-  auth0_id  String    @unique
+  email     String     @unique
+  auth0_id  String     @unique
+  customers Customer[]
+
   createdAt DateTime  @default(now()) @map("created_at") @db.Timestamptz(3)
   updatedAt DateTime  @updatedAt @map("updated_at") @db.Timestamptz(3)
   deletedAt DateTime? @map("deleted_at") @db.Timestamptz(3)
@@ -26,6 +28,8 @@ model Customer {
   birthdate DateTime
   email     String            @unique
   phone     String            @unique
+  ownerId   String            @db.Uuid
+  owner     User              @relation(fields: [ownerId], references: [id])
   addresses CustomerAddress[]
 
   createdAt DateTime  @default(now()) @map("created_at") @db.Timestamptz(3)
@@ -42,7 +46,7 @@ model CustomerAddress {
   neighborhood String
   street       String
   house        String
-  complemento  String?
+  complement   String?
   address_type AddressType
   customerId   String      @db.Uuid
   customer     Customer    @relation(fields: [customerId], references: [id])
