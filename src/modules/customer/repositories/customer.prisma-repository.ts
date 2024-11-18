@@ -3,6 +3,7 @@ import { CustomerRepositoryPort } from './customer.repository.port';
 import {
   CreateCustomerPrisma,
   ResultCustomerPrisma,
+  UpdateCustomerDTO,
 } from '../dtos/customerDTO';
 import { PrismaService } from 'src/libs/database/prisma.service';
 import { TPagination, TPaginationResponse } from 'src/utils/paginationSchema';
@@ -14,6 +15,28 @@ export class CustomerRepository implements CustomerRepositoryPort {
 
   async create(data: CreateCustomerPrisma) {
     return await this.prismaService.customer.create({ data });
+  }
+
+  async update(data: UpdateCustomerDTO, id: string) {
+    return await this.prismaService.customer.update({
+      where: {
+        id,
+      },
+      data: {
+        ...data,
+      },
+    });
+  }
+
+  async softDelete(id: string) {
+    return await this.prismaService.customer.update({
+      where: {
+        id,
+      },
+      data: {
+        deletedAt: new Date(),
+      },
+    });
   }
 
   async findAll(
