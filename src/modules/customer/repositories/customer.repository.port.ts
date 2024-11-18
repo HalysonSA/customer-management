@@ -9,7 +9,12 @@ export interface CustomerRepositoryPort {
   create(data: CreateCustomerPrisma): Promise<ResultCustomerPrisma>;
   findAll(
     pagination: TPagination,
+    ownerId: string,
   ): Promise<TPaginationResponse<ResultCustomerPrisma>>;
-  update(data: UpdateCustomerDTO, id: string): Promise<ResultCustomerPrisma>;
-  softDelete(id: string): Promise<ResultCustomerPrisma>;
+  update(
+    data: UpdateCustomerDTO,
+    id: string,
+    ownerId: string,
+  ): Promise<ResultCustomerPrisma>;
+  softDelete(id: string, ownerId: string): Promise<ResultCustomerPrisma>;
 }

@@ -17,10 +17,11 @@ export class CustomerRepository implements CustomerRepositoryPort {
     return await this.prismaService.customer.create({ data });
   }
 
-  async update(data: UpdateCustomerDTO, id: string) {
+  async update(data: UpdateCustomerDTO, id: string, ownerId: string) {
     return await this.prismaService.customer.update({
       where: {
         id,
+        ownerId,
       },
       data: {
         ...data,
@@ -28,10 +29,11 @@ export class CustomerRepository implements CustomerRepositoryPort {
     });
   }
 
-  async softDelete(id: string) {
+  async softDelete(id: string, ownerId: string) {
     return await this.prismaService.customer.update({
       where: {
         id,
+        ownerId,
       },
       data: {
         deletedAt: new Date(),
@@ -41,6 +43,7 @@ export class CustomerRepository implements CustomerRepositoryPort {
 
   async findAll(
     pagination: TPagination,
+    ownerId: string,
   ): Promise<TPaginationResponse<ResultCustomerPrisma>> {
     const { limit, page, search } = pagination;
 
@@ -56,13 +59,17 @@ export class CustomerRepository implements CustomerRepositoryPort {
       : {};
 
     const totalRecords = await this.prismaService.customer.count({
-      where: whereCondition,
+      where: {
+        ...whereCondition,
+        ownerId,
+      },
     });
 
     const customers = await this.prismaService.customer.findMany({
       where: {
         deletedAt: null,
         ...whereCondition,
+        ownerId,
       },
       skip: offset,
       take: limit,
