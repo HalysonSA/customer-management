@@ -10,6 +10,8 @@ import { UpdateCustomerHttpController } from './update-customer/update-customer.
 import { UpdateCustomerService } from './update-customer/update-customer.service';
 import { DeleteCustomerHttpController } from './delete-customer/delete-customer.http-controller';
 import { DeleteCustomerService } from './delete-customer/delete-customer.service';
+import { USER_REPOSITORY } from '../user/user.di-tokens';
+import { UserRepository } from '../user/repositories/user.prisma-repository';
 
 const providers: Provider[] = [
   CreateCustomerService,
@@ -22,6 +24,10 @@ const respositories: Provider[] = [
   {
     provide: CUSTOMER_REPOSITORY,
     useClass: CustomerRepository,
+  },
+  {
+    provide: USER_REPOSITORY,
+    useClass: UserRepository,
   },
 ];
 const controllers = [
