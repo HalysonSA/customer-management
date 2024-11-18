@@ -8,10 +8,10 @@ datasource db {
 }
 
 model User {
-  id    String @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
-  name  String
-  email String @unique
-
+  id        String    @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  name      String
+  email     String    @unique
+  auth0_id  String    @unique
   createdAt DateTime  @default(now()) @map("created_at") @db.Timestamptz(3)
   updatedAt DateTime  @updatedAt @map("updated_at") @db.Timestamptz(3)
   deletedAt DateTime? @map("deleted_at") @db.Timestamptz(3)
