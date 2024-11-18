@@ -25,13 +25,18 @@
   "dependencies": {
     "@nestjs/common": "^10.0.0",
     "@nestjs/core": "^10.0.0",
+    "@nestjs/passport": "^10.0.3",
     "@nestjs/platform-express": "^10.0.0",
     "@prisma/client": "5.22.0",
+    "auth0": "^4.13.0",
     "class-transformer": "^0.5.1",
     "class-validator": "^0.14.1",
     "cpf-cnpj-validator": "^1.0.3",
+    "dotenv": "^16.4.5",
     "jsonwebtoken": "^9.0.2",
+    "jwks-rsa": "^3.1.0",
     "libphonenumber-js": "^1.11.14",
+    "passport-jwt": "^4.0.1",
     "prisma": "^5.22.0",
     "reflect-metadata": "^0.2.0",
     "rxjs": "^7.8.1"
