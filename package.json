@@ -35,6 +35,7 @@
     "dotenv": "^16.4.5",
     "jsonwebtoken": "^9.0.2",
     "jwks-rsa": "^3.1.0",
+    "jwt-decode": "^4.0.0",
     "libphonenumber-js": "^1.11.14",
     "passport-jwt": "^4.0.1",
     "prisma": "^5.22.0",
