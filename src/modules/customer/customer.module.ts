@@ -6,10 +6,16 @@ import { CustomerRepository } from './repositories/customer.prisma-repository';
 import { PrismaService } from 'src/libs/database/prisma.service';
 import { ListCustomersService } from './list-customers/list-customers.service';
 import { ListCustomersHttpController } from './list-customers/list-customers.http-controller';
+import { UpdateCustomerHttpController } from './update-customer/update-customer.http-controller';
+import { UpdateCustomerService } from './update-customer/update-customer.service';
+import { DeleteCustomerHttpController } from './delete-customer/delete-customer.http-controller';
+import { DeleteCustomerService } from './delete-customer/delete-customer.service';
 
 const providers: Provider[] = [
   CreateCustomerService,
   ListCustomersService,
+  UpdateCustomerService,
+  DeleteCustomerService,
   PrismaService,
 ];
 const respositories: Provider[] = [
@@ -18,7 +24,12 @@ const respositories: Provider[] = [
     useClass: CustomerRepository,
   },
 ];
-const controllers = [CreateCustomerHttpController, ListCustomersHttpController];
+const controllers = [
+  CreateCustomerHttpController,
+  ListCustomersHttpController,
+  UpdateCustomerHttpController,
+  DeleteCustomerHttpController,
+];
 
 @Module({
   providers: [...providers, ...respositories],

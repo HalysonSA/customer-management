@@ -2,6 +2,7 @@ import { TPagination, TPaginationResponse } from 'src/utils/paginationSchema';
 import {
   CreateCustomerPrisma,
   ResultCustomerPrisma,
+  UpdateCustomerDTO,
 } from '../dtos/customerDTO';
 
 export interface CustomerRepositoryPort {
@@ -9,4 +10,6 @@ export interface CustomerRepositoryPort {
   findAll(
     pagination: TPagination,
   ): Promise<TPaginationResponse<ResultCustomerPrisma>>;
+  update(data: UpdateCustomerDTO, id: string): Promise<ResultCustomerPrisma>;
+  softDelete(id: string): Promise<ResultCustomerPrisma>;
 }
