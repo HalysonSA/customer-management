@@ -5,6 +5,7 @@ import {
   HttpStatus,
   ForbiddenException,
   BadRequestException,
+  UnauthorizedException,
 } from '@nestjs/common';
 import { Prisma } from '@prisma/client';
 import { TokenExpiredError } from 'jsonwebtoken';
@@ -26,6 +27,7 @@ export class GlobalErrorFilter implements ExceptionFilter {
           response.status(HttpStatus.CONFLICT).json({
             statusCode: HttpStatus.CONFLICT,
             message: 'Conflict: Unique constraint violation.',
+            targets: prismaError.meta.target,
           });
           break;
 
@@ -61,6 +63,13 @@ export class GlobalErrorFilter implements ExceptionFilter {
       }
 
       if (exception instanceof TokenExpiredError) {
+        return response.status(HttpStatus.UNAUTHORIZED).json({
+          statusCode: HttpStatus.UNAUTHORIZED,
+          message: 'Unauthorized.',
+        });
+      }
+
+      if (exception instanceof UnauthorizedException) {
         return response.status(HttpStatus.UNAUTHORIZED).json({
           statusCode: HttpStatus.UNAUTHORIZED,
           message: 'Unauthorized.',
